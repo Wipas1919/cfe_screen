@@ -7,12 +7,16 @@
       html, body {
         margin: 0;
         height: 100%;
-        overflow: hidden;
+        overflow: auto; /* อนุญาต scroll ได้ ถ้าจอเล็กกว่า */
+        background: #000; /* พื้นหลังดำ กันเห็นขอบขาว */
       }
       iframe {
-        width: 100vw;   /* ขยายเต็มจอแนวนอน */
-        height: 110vh;  /* ขยายสูงกว่าหน้าจอเล็กน้อย (ดัน footer หลุดจอ) */
+        width: 2202px;   /* กำหนดขนาดจริง */
+        height: 2160px;  /* กำหนดขนาดจริง */
         border: none;
+        display: block;
+        margin-left: 0;  /* ชิดซ้าย */
+        margin-top: 0;   /* ชิดบน */
       }
     </style>
   </head>
