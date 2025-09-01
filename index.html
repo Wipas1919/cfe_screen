@@ -2,36 +2,35 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Power BI 2202×2160 (crop bottom bar, no scroll)</title>
+    <title>Power BI 2202×2160 (crop bottom bar)</title>
     <style>
       :root{
         --w: 2202;   /* ความกว้างรายงานจริง */
         --h: 2160;   /* ความสูงรายงานจริง */
-        --crop: 100; /* ส่วนเพิ่มความสูงไว้ซ่อนแถบล่าง (ปรับ 80–140 ตามต้องการ) */
+        --crop: 100; /* จำนวนพิกเซลที่ต้องการซ่อนด้านล่าง (ปรับ 80–140 ตามที่เห็น) */
       }
       html, body {
         margin: 0;
         height: 100%;
         background: #000;
-        overflow: hidden; /* ไม่มีสกอร์ล */
+        overflow: hidden; /* ไม่ให้มีสกอร์ล */
       }
-      /* กรอบมุมมองขนาดจริง */
+      /* กรอบแสดงผลขนาดจริง และครอปส่วนเกิน (รวมแถบ zoom) */
       .frame {
         position: fixed;
         top: 0; left: 0;
         width: calc(var(--w) * 1px);
         height: calc(var(--h) * 1px);
-        overflow: hidden;   /* ครอปส่วนเกิน (รวมแถบ zoom ด้านล่าง) */
+        overflow: hidden;
         background: #000;
       }
       iframe {
-        position: absolute;
-        top: 0; left: 0;    /* ยึดบนซ้าย ไม่เลื่อน */
         width: calc(var(--w) * 1px);
-        height: calc((var(--h) + var(--crop)) * 1px); /* ทำให้สูงกว่า viewport */
+        height: calc((var(--h) + var(--crop)) * 1px); /* ทำให้สูงกว่าเพื่อเลื่อนครอปได้ */
         border: none;
         display: block;
         background: #000;
+        transform: translateY(calc(-1 * var(--crop) * 1px)); /* เลื่อนขึ้นซ่อนแถบล่าง */
       }
     </style>
   </head>
