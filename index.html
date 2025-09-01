@@ -2,29 +2,41 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Power BI Fullscreen</title>
+    <title>Power BI 2202×2160 (no scroll)</title>
     <style>
       html, body {
         margin: 0;
         height: 100%;
-        overflow: auto; /* อนุญาต scroll ได้ ถ้าจอเล็กกว่า */
-        background: #000; /* พื้นหลังดำ กันเห็นขอบขาว */
+        overflow: hidden;      /* ตัดสกอร์ล */
+        background: #000;
       }
+      /* กล่องมุมมองเต็มหน้าจอ ใช้ครอปส่วนเกิน */
+      .viewport {
+        position: fixed;
+        inset: 0;              /* top:0; right:0; bottom:0; left:0 */
+        overflow: hidden;      /* ครอปถ้าจอเล็กกว่า 2202×2160 */
+        background: #000;
+      }
+      /* วางรีพอร์ตชิดซ้าย-บน ด้วยขนาดจริง */
       iframe {
-        width: 2202px;   /* กำหนดขนาดจริง */
-        height: 2160px;  /* กำหนดขนาดจริง */
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 2202px;
+        height: 2160px;
         border: none;
         display: block;
-        margin-left: 0;  /* ชิดซ้าย */
-        margin-top: 0;   /* ชิดบน */
+        background: #000;
       }
     </style>
   </head>
   <body>
-    <iframe 
-      title="SX-template"
-      src="https://app.powerbi.com/view?r=eyJrIjoiNmY5YjQyMjEtYmZkNS00OWI3LWIwYjMtNjI4ZWFlOWQxYTgzIiwidCI6ImE0ZTY5NmQ4LTg4OTktNGNhNy1iN2VhLTNiZjY0ODNjYzkwZCIsImMiOjEwfQ%3D%3D"
-      allowFullScreen="true">
-    </iframe>
+    <div class="viewport">
+      <iframe
+        title="SX-template"
+        src="https://app.powerbi.com/view?r=eyJrIjoiNmY5YjQyMjEtYmZkNS00OWI3LWIwYjMtNjI4ZWFlOWQxYTgzIiwidCI6ImE0ZTY5NmQ4LTg4OTktNGNhNy1iN2VhLTNiZjY0ODNjYzkwZCIsImMiOjEwfQ%3D%3D"
+        allowfullscreen="true">
+      </iframe>
+    </div>
   </body>
 </html>
