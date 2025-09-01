@@ -1,47 +1,50 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <title>Power BI 2202×2160 (crop bottom bar, no scroll)</title>
-    <style>
-      :root{
-        --w: 2202;   /* ความกว้างรายงานจริง */
-        --h: 2160;   /* ความสูงรายงานจริง */
-        --crop: 100; /* ส่วนเพิ่มความสูงไว้ซ่อนแถบล่าง (ปรับ 80–140 ตามต้องการ) */
-      }
-      html, body {
-        margin: 0;
-        height: 100%;
-        background: #000;
-        overflow: hidden; /* ไม่มีสกอร์ล */
-      }
-      /* กรอบมุมมองขนาดจริง */
-      .frame {
-        position: fixed;
-        top: 0; left: 0;
-        width: calc(var(--w) * 1px);
-        height: calc(var(--h) * 1px);
-        overflow: hidden;   /* ครอปส่วนเกิน (รวมแถบ zoom ด้านล่าง) */
-        background: #000;
-      }
-      iframe {
-        position: absolute;
-        top: 0; left: 0;    /* ยึดบนซ้าย ไม่เลื่อน */
-        width: calc(var(--w) * 1px);
-        height: calc((var(--h) + var(--crop)) * 1px); /* ทำให้สูงกว่า viewport */
-        border: none;
-        display: block;
-        background: #000;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="frame">
+<head>
+<meta charset="UTF-8">
+<title>PBI scaled render</title>
+<style>
+  :root{
+    --w: 2202;    /* กว้างจริงของรีพอร์ต */
+    --h: 2160;    /* สูงจริงของรีพอร์ต */
+    --crop: 100;  /* ครอปซ่อนแถบล่าง (ปรับ 80–140 ตามที่เห็น) */
+  }
+  html, body { margin:0; height:100%; background:#000; overflow:hidden; }
+  .viewport{
+    position:fixed; inset:0;
+    display:flex; align-items:flex-start; justify-content:flex-start;
+    overflow:hidden; background:#000;
+  }
+  .stage{
+    width: calc(var(--w) * 1px);
+    height: calc(var(--h) * 1px);
+    transform-origin: top left; /* ยึดซ้ายบนเวลา scale */
+    position: relative;
+  }
+  /* ย่อให้พอดีจออัตโนมัติ (รักษาอัตราส่วน) */
+  @media (min-aspect-ratio: 2202/2160) {
+    .stage { transform: scale(calc(100vh / (var(--h) * 1px))); }
+  }
+  @media (max-aspect-ratio: 2202/2160) {
+    .stage { transform: scale(calc(100vw / (var(--w) * 1px))); }
+  }
+  iframe{
+    position:absolute; top:0; left:0;
+    width: calc(var(--w) * 1px);
+    height: calc((var(--h) + var(--crop)) * 1px); /* ให้สูงกว่าเพื่อดันแถบล่างออก */
+    border:none; background:#000;
+  }
+</style>
+</head>
+<body>
+  <div class="viewport">
+    <div class="stage">
       <iframe
         title="SX-template"
         src="https://app.powerbi.com/view?r=eyJrIjoiNmY5YjQyMjEtYmZkNS00OWI3LWIwYjMtNjI4ZWFlOWQxYTgzIiwidCI6ImE0ZTY5NmQ4LTg4OTktNGNhNy1iN2VhLTNiZjY0ODNjYzkwZCIsImMiOjEwfQ%3D%3D"
         allowfullscreen="true">
       </iframe>
     </div>
-  </body>
+  </div>
+</body>
 </html>
