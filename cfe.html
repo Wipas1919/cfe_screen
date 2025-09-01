@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Power BI Fullscreen</title>
+    <style>
+      html, body {
+        margin: 0;
+        height: 100%;
+        overflow: hidden;
+      }
+      iframe {
+        width: 100vw;   /* ขยายเต็มจอแนวนอน */
+        height: 110vh;  /* ขยายสูงกว่าหน้าจอเล็กน้อย (ดัน footer หลุดจอ) */
+        border: none;
+      }
+    </style>
+  </head>
+  <body>
+    <iframe 
+      title="SX-template"
+      src="https://app.powerbi.com/view?r=eyJrIjoiNmY5YjQyMjEtYmZkNS00OWI3LWIwYjMtNjI4ZWFlOWQxYTgzIiwidCI6ImE0ZTY5NmQ4LTg4OTktNGNhNy1iN2VhLTNiZjY0ODNjYzkwZCIsImMiOjEwfQ%3D%3D"
+      allowFullScreen="true">
+    </iframe>
+  </body>
+</html>
