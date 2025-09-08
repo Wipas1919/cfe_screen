@@ -1,54 +1,62 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <title>Power BI 2202×2160 (crop bottom bar, no scroll)</title>
-    <style>
-      :root {
-        --w: 2202;  /* ความกว้างรายงานจริง */
-        --h: 2160;  /* ความสูงรายงานจริง */
-        --crop: 100; /* ส่วนเพิ่มความสูงไว้ซ่อนแถบล่าง (ปรับ 80–140 ตามต้องการ) */
-      }
+<head>
+  <meta charset="utf-8" />
+  <title>Power BI – Low Render Resolution, Scaled Up</title>
+  <meta http-equiv="refresh" content="1800"> <!-- กันค้าง -->
+  <style>
+    html,body{margin:0;height:100%;background:#000;overflow:hidden}
 
-      html,
-      body {
-        margin: 0;
-        height: 100%;
-        background: #000;
-        overflow: hidden; /* ไม่มีสกอร์ล */
-      }
+    /* กำหนด “ความละเอียดเรนเดอร์จริง” ที่อยากให้เบา */
+    :root{
+      --tw: 1280; /* กว้างที่เรนเดอร์จริง (ปรับ: 960/1280/1366) */
+      --th: 720;  /* สูงที่เรนเดอร์จริง (ปรับ: 540/720/768) */
+    }
 
-      /* กรอบมุมมองขนาดจริง */
-      .frame {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: calc(var(--w) * 1px);
-        height: calc(var(--h) * 1px);
-        overflow: hidden; /* ครอปส่วนเกิน (รวมแถบ zoom ด้านล่าง) */
-        background: #000;
-      }
+    /* กรอบเต็มจอ */
+    .stage{
+      position:fixed; inset:0; background:#000; overflow:hidden;
+    }
 
-      iframe {
-        position: absolute;
-        top: 0;
-        left: 0; /* ยึดบนซ้าย ไม่เลื่อน */
-        width: calc(var(--w) * 1px);
-        height: calc((var(--h) + var(--crop)) * 1px); /* ทำให้สูงกว่า viewport */
-        border: none;
-        display: block;
-        background: #000;
-      }
-    </style>
-  </head>
+    /* พื้นที่เรนเดอร์ขนาดเล็ก */
+    .renderBox{
+      position:absolute; top:0; left:0;
+      width: calc(var(--tw) * 1px);
+      height: calc(var(--th) * 1px);
+      transform-origin: top left;
+      /* scale จะถูกเติมด้วย JS ด้านล่าง เพื่อพอดีจอ */
+    }
 
-  <body>
-    <div class="frame">
+    iframe{
+      width:100%; height:100%; border:0; background:#000;
+    }
+  </style>
+</head>
+<body>
+  <div class="stage">
+    <div id="box" class="renderBox">
       <iframe
-        title="SX-template"
-        src="https://app.powerbi.com/view?r=eyJrIjoiNmY5YjQyMjEtYmZkNS00OWI3LWIwYjMtNjI4ZWFlOWQxYTgzIiwidCI6ImE0ZTY5NmQ4LTg4OTktNGNhNy1iN2VhLTNiZjY0ODNjYzkwZCIsImMiOjEwfQ%3D%3D"
-        allowfullscreen="true">
+        src="https://app.powerbi.com/view?r=YOUR_TOKEN&filterPaneEnabled=false&navContentPaneEnabled=false"
+        title="PBI"
+        scrolling="no"
+        allowfullscreen>
       </iframe>
     </div>
-  </body>
+  </div>
+
+  <script>
+    // คำนวณสเกลให้พอดีหน้าจอ (คงอัตราส่วน)
+    function fit() {
+      const tw = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--tw'));
+      const th = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--th'));
+      const sx = window.innerWidth / tw;
+      const sy = window.innerHeight / th;
+      const s = Math.min(sx, sy);
+      const box = document.getElementById('box');
+      box.style.transform = `scale(${s})`;
+    }
+    window.addEventListener('resize', fit);
+    fit();
+  </script>
+</body>
 </html>
