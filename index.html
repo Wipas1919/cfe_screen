@@ -2,12 +2,12 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Power BI 1080p (crop bottom bar, no scroll)</title>
+    <title>Power BI 2202×2160 (crop bottom bar, no scroll)</title>
     <style>
       :root {
-        --w: 1920;  /* ความกว้างใหม่ 1080p */
-        --h: 1080;  /* ความสูงใหม่ 1080p */
-        --crop: 100; /* ส่วนเพิ่มความสูงไว้ซ่อนแถบล่าง */
+        --w: 2202;  /* ความกว้างรายงานจริง */
+        --h: 2160;  /* ความสูงรายงานจริง */
+        --crop: 100; /* ส่วนเพิ่มความสูงไว้ซ่อนแถบล่าง (ปรับ 80–140 ตามต้องการ) */
       }
 
       html,
@@ -18,7 +18,7 @@
         overflow: hidden; /* ไม่มีสกอร์ล */
       }
 
-      /* กรอบมุมมอง 1080p */
+      /* กรอบมุมมองขนาดจริง */
       .frame {
         position: fixed;
         top: 0;
@@ -32,9 +32,9 @@
       iframe {
         position: absolute;
         top: 0;
-        left: 0; /* ยึดบนซ้าย */
+        left: 0; /* ยึดบนซ้าย ไม่เลื่อน */
         width: calc(var(--w) * 1px);
-        height: calc((var(--h) + var(--crop)) * 1px); /* ยืดให้สูงกว่ากรอบ */
+        height: calc((var(--h) + var(--crop)) * 1px); /* ทำให้สูงกว่า viewport */
         border: none;
         display: block;
         background: #000;
